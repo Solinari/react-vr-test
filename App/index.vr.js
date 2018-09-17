@@ -5,10 +5,32 @@ import {
   Pano,
   Text,
   View,
+  Sphere,
+  Cylinder,
   DirectionalLight,
   AmbientLight,
   Model
 } from 'react-vr';
+
+
+// function tree
+const Tree = props => {
+  return (
+    <View style={props.style}>
+      <Sphere
+        lit
+        style={{ color: 'green', transform: [{ translateY: 0.8}] }}
+      >
+      </Sphere>
+      <Cylinder
+        lit
+        style={{ color: 'brown' }}
+        radiusBottom={0.05}
+        radiusTop={0.05}
+      />
+    </View>
+  )
+}
 
 export default class App extends React.Component {
   render() {
@@ -30,7 +52,8 @@ export default class App extends React.Component {
           hello
         </Text> */}
         {/* <Pano source={asset('chess-world.jpg')}/> */}
-        <Model
+        {/* Module 7 */}
+        {/* <Model
           source={{
             obj: asset('astronaut.obj'),
             mtl: asset('astronaut.mtl')
@@ -47,7 +70,19 @@ export default class App extends React.Component {
         />
         <AmbientLight
         intensity={0.4}
+        /> */}
+        {/* M0dule 8 multiple 3d objects into one component */}
+        <Tree
+          style={{ transform: [{ translateZ: -3}]}}
         />
+        <Tree
+          style={{ transform: [{ translateZ: -3}, {translateX: 1.1} ]}}
+        />
+        <DirectionalLight
+          style={{ transform: [{ translateX: -1000 }]}}
+        />
+        <AmbientLight
+          intensity={0.4}/>
       </View>
     );
   }
