@@ -9,7 +9,8 @@ import {
   Cylinder,
   DirectionalLight,
   AmbientLight,
-  Model
+  Model,
+  VrButton
 } from 'react-vr';
 
 
@@ -35,7 +36,8 @@ const Tree = props => {
 export default class App extends React.Component {
   render() {
     return (
-      <View>
+      <View
+      >
         {/* <Pano source={asset('chess-world.jpg')}/>
         <Text
           style={{
@@ -72,7 +74,7 @@ export default class App extends React.Component {
         intensity={0.4}
         /> */}
         {/* M0dule 8 multiple 3d objects into one component */}
-        <Tree
+        {/* <Tree
           style={{ transform: [{ translateZ: -3}]}}
         />
         <Tree
@@ -82,7 +84,39 @@ export default class App extends React.Component {
           style={{ transform: [{ translateX: -1000 }]}}
         />
         <AmbientLight
-          intensity={0.4}/>
+          intensity={0.4}/> */}
+          {/* Module 9 - capuring ui input */}
+        <Pano source={asset('chess-world.jpg')}/>
+        {/* <View
+            // Module 9 styling and event handlers
+          style={{
+            width: 2,
+            height: 2,
+            backgroundColor: '#FFF',
+            layoutOrigin: [0.5, 0.5],
+            transform: [{translate: [0, 0, -3]}],
+          }}
+          //onEnter={() => { console.log("onEnter") }}
+          //onExit={() => { console.log("onExit") }}
+          // onMove={(event) => { console.log("onRayCastMove", event.nativeEvent) }} 
+          // onInput={(event) => {
+          //    console.log("onInput", event.nativeEvent.inputEvent.type);
+          //    console.log("onInput", event.nativeEvent.inputEvent.eventType); }} 
+        /> */}
+        <VrButton
+          onClick={() => console.log('clicked')}
+          onLongClick={() => console.log('long click clicked')}
+          onButtonPress={() => console.log('button pressed')}
+          onButtonRelease={() => console.log('button released')}
+          // disabled
+          longClickDelayMS={4000}
+          style={{layoutOrigin: [0.5, 0.5],
+                  transform: [{ translate: [0, 0, -1] }] }}
+        >
+          <Text>
+            Update
+          </Text>
+        </VrButton>
       </View>
     );
   }
