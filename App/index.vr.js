@@ -108,7 +108,7 @@ export default class App extends React.Component {
           onLongClick={() => console.log('long click clicked')}
           onButtonPress={() => console.log('button pressed')}
           onButtonRelease={() => console.log('button released')}
-          // disabled
+          // disabled // this can disable all button events
           longClickDelayMS={4000}
           style={{layoutOrigin: [0.5, 0.5],
                   transform: [{ translate: [0, 0, -1] }] }}
