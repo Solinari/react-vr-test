@@ -7,14 +7,16 @@ import {
   View,
   Sphere,
   Cylinder,
+  Box,
   DirectionalLight,
   AmbientLight,
   Model,
-  VrButton
+  VrButton,
+  Animated
 } from 'react-vr';
 
 
-// function tree
+// function for Tree for building multiple 3d Objects
 const Tree = props => {
   return (
     <View style={props.style}>
@@ -33,7 +35,53 @@ const Tree = props => {
   )
 }
 
+// required for shipping higher order animated custom components
+const AnimatedBox = Animated.createAnimatedComponent(Box);
+
 export default class App extends React.Component {
+
+  // constructor
+  constructor(props){
+    super(props);
+
+    // For View primitive example
+    // this.state = {
+    //   fadeIn: new Animated.Value(0),
+    //   springValue: new Animated.Value(-1)
+    // }
+
+    // box animations
+    this.state = {
+      rotation: new Animated.Value(0),
+      rotateTo: -930
+    }
+  }
+
+  // behavior of animation
+  componentDidMount() {
+    // For View primitive example
+    // Animated.sequence([
+    //   Animated.timing(this.state.fadeIn, {toValue: 1, duration: 3000}),
+    //   Animated.delay(1000),
+    //   Animated.spring(this.state.springValue, {
+    //     toValue: 0,
+    //     tension: 1,
+    //     friction: 2
+    //   })
+    // ]).start();
+    
+    // this.rotate();
+  }
+
+  rotate() {
+    console.log("Rotating..");
+    this.state.rotateTo = this.state.rotateTo * -1;
+    Animated.timing(this.state.rotation, {
+      duration: 10000,
+      toValue: this.state.rotateTo
+    }).start()
+  }
+
   render() {
     return (
       <View
@@ -103,7 +151,7 @@ export default class App extends React.Component {
           //    console.log("onInput", event.nativeEvent.inputEvent.type);
           //    console.log("onInput", event.nativeEvent.inputEvent.eventType); }} 
         /> */}
-        <VrButton
+        {/* <VrButton
           onClick={() => console.log('clicked')}
           onLongClick={() => console.log('long click clicked')}
           onButtonPress={() => console.log('button pressed')}
@@ -116,7 +164,53 @@ export default class App extends React.Component {
           <Text>
             Update
           </Text>
+        </VrButton> */}
+        {/* Module 10 Animate text images views and 3d elements using Animated*/}
+        {/* // For View primitive example */}
+        {/* <Animated.View
+          style={{
+            opacity: this.state.fadeIn,
+            layoutOrigin: [0.5, 0.5],
+            transform: [
+              { translateZ: -1},
+              { translateY: this.state.springValue}
+            ],
+            height: 0.25,
+            width: 0.25,
+            backgroundColor: '#335',
+          }}
+        >
+        <Text>Hello</Text>
+        </Animated.View> */}
+        <VrButton
+          onClick={() => {this.rotate()}}
+          style={{layoutOrigin: [0.5, 0.5],
+                  transform: [{ translate: [0, 0.33, -1] }] }}
+        >
+          <Text>
+            Rotate
+          </Text>
         </VrButton>
+        <AnimatedBox
+          lit
+          dimWidth={2}
+          dimDepth={2}
+          dimHeight={2}
+          style={{
+            transform: [
+              { translate: [0, 0, -10] }, // +10 would be behind you
+              { rotateY: this.state.rotation },
+              { rotateX: this.state.rotation },
+              { rotateZ: this.state.rotation }
+            ]
+          }}
+          />
+           <AmbientLight intensity={0.5} />
+           <DirectionalLight
+            style={{
+              transform: [{ translate: [-200, 700, 0] }]
+            }}
+           />
       </View>
     );
   }
